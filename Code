@@ -1,0 +1,323 @@
+# lear
+# Dinosaur
+
+# Welcome to the Dinosaur game
+# This game is made in pygame
+
+import pygame
+import random as rd
+
+if __name__ == "__main__":
+    pygame.init()
+
+    # Screen
+    WIDTH = 1200
+    HEIGHT = 600
+
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+    # Background
+    background_1 = pygame.image.load("flappy_bg_2.jpg")
+    background_2 = pygame.image.load("flappy_bg_2_2.jpg")
+    BK = True
+
+    # Icon
+    icon = pygame.image.load("dinosaur_icon.png")
+    pygame.display.set_icon(icon)
+
+    # Title
+    pygame.display.set_caption("Dinosaur")
+
+
+    # Dinosaur
+    class Dinosaur:
+        def __init__(self, dino, dino_X, dino_Y):
+            self.dino = dino
+            self.dino_X = dino_X
+            self.dino_Y = dino_Y
+
+        def get_dino(self):
+            screen.blit(self.dino, (self.dino_X, self.dino_Y))
+
+    dinosaur = pygame.image.load("dinosaur.png")
+    dinasour_2 = pygame.image.load("dinosaur_2.png")
+    dinosaur_x = 180
+    dinosaur_y = 420
+
+    DINO = Dinosaur(dinosaur, dinosaur_x, dinosaur_y)
+
+    # Enemies
+    class Enemies:
+        def __init__(self, cactus_1, cactus_1_X, cactus_1_Y, cactus_2, cactus_2_X, cactus_2_Y, bird, bird_X, bird_Y, hunter, hunter_X, hunter_Y, hunter_bullet, hunter_bullet_X, hunter_bullet_Y):
+            self.cactus_1 = cactus_1
+            self.cactus_1_X = cactus_1_X
+            self.cactus_1_Y = cactus_1_Y
+
+            self.cactus_2 = cactus_2
+            self.cactus_2_X = cactus_2_X
+            self.cactus_2_Y = cactus_2_Y
+
+            self.bird = bird
+            self.bird_X = bird_X
+            self.bird_Y = bird_Y
+
+            self.hunter = hunter
+            self.hunter_X = hunter_X
+            self.hunter_Y = hunter_Y
+
+            self.hunter_bullet = hunter_bullet
+            self.hunter_bullet_X = hunter_bullet_X
+            self.hunter_bullet_Y = hunter_bullet_Y
+
+        def get_cactus_1(self):
+            screen.blit(self.cactus_1, (self.cactus_1_X, self.cactus_1_Y))
+
+        def get_cactus_2(self):
+            screen.blit(self.cactus_2, (self.cactus_2_X, self.cactus_2_Y))
+
+        def get_bird(self):
+            screen.blit(self.bird, (self.bird_X, self.bird_Y))
+
+        def get_hunter(self):
+            screen.blit(self.hunter, (self.hunter_X, self.hunter_Y))
+
+        def get_hunter_bullet(self):
+            screen.blit(self.hunter_bullet, (self.hunter_bullet_X - 8, self.hunter_bullet_Y))
+
+    cactus_1 = pygame.image.load("cactus_1.png")
+    cactus_1_x = 1300
+    cactus_1_y = 420
+
+    cactus_2 = pygame.image.load("cactus_2.png")
+    cactus_2_x = 1650
+    cactus_2_y = 420
+
+    bird = pygame.image.load("seagull.png")
+    bird_x = 2000
+    bird_y = 300
+
+    hunter = pygame.image.load("hunter.png")
+    hunter_x = 2400
+    hunter_y = 420
+
+    hunter_bullet = pygame.image.load("small_bullet.png")
+    hunter_bullet_x = hunter_x - 8
+    hunter_bullet_y = 430
+
+    places = [1300, 1650, 2000, 2350]
+    rand_1 = rd.randint(0, 3)
+    rand_2 = rd.randint(0, 3)
+    rand_3 = rd.randint(0, 3)
+    rand_4 = rd.randint(0, 3)
+
+    ENEMY = Enemies(cactus_1, cactus_1_x, cactus_1_y, cactus_2, cactus_2_x, cactus_2_y, bird, bird_x, bird_y, hunter, hunter_x, hunter_y, hunter_bullet, hunter_bullet_x, hunter_bullet_y)
+
+
+    # Statistics
+    text_1 = pygame.font.Font("freesansbold.ttf", 50)
+    text_2 = pygame.font.Font("freesansbold.ttf", 64)
+
+    class Statistics:
+        def __init__(self, score, win, lose):
+            self.score = score
+            self.win = win
+            self.lose = lose
+
+        def get_score(self):
+            score_text = text_1.render(f"Score : {self.score}", True, (140, 80, 40))
+            screen.blit(score_text, (470, 30))
+
+        def get_win(self):
+            win_text = text_2.render(self.win, True, (40, 140, 80))
+            screen.blit(win_text, (440, 200))
+
+        def get_lose(self):
+            lose_text = text_2.render(self.lose, True, (140, 140, 40))
+            screen.blit(lose_text, (440, 200))
+
+    score = 0
+    win = "You Win!"
+    lose = "You lost!"
+
+    STAT = Statistics(score, win, lose)
+
+
+    # Sky
+    class Sky:
+        def __init__(self, sun, cloud, moon, dark_cloud):
+            self.sun = sun
+            self.cloud = cloud
+
+            self.moon = moon
+            self.dark_cloud = dark_cloud
+
+        def get_sun(self):
+            screen.blit(self.sun, (960, 90))
+
+        def get_cloud_1(self):
+            screen.blit(self.cloud, (130, 80))
+
+        def get_cloud_2(self):
+            screen.blit(self.cloud, (520, 130))
+
+
+        def get_moon(self):
+            screen.blit(self.moon, (100, 90))
+
+        def get_dark_cloud_1(self):
+            screen.blit(self.dark_cloud, (500, 120))
+
+        def get_dark_cloud_2(self):
+            screen.blit(self.dark_cloud, (1000, 80))
+
+    sun = pygame.image.load("sun.png")
+    cloud = pygame.image.load("cloud.png")
+    moon = pygame.image.load("moon.png")
+    dark_cloud = pygame.image.load("dark_cloud.png")
+
+    SKY = Sky(sun, cloud, moon, dark_cloud)
+
+
+    # Sound
+    WINNING = pygame.mixer.Sound("TTT_win.wav")
+    LOSING = pygame.mixer.Sound("losing.wav")
+    SCORE_UP = pygame.mixer.Sound("score_gaining.wav")
+    JUMP = pygame.mixer.Sound("jump.wav")
+    CHANGING_WEATHER = pygame.mixer.Sound("using_shield.wav")
+
+    WN = True
+    LS = True
+
+
+    DONE = False
+    running = True
+
+    while running:
+        if BK:
+            screen.blit(background_1, (0, -400))
+            SKY.get_sun()
+            SKY.get_cloud_1()
+            SKY.get_cloud_2()
+            DINO.dino = dinosaur
+
+        else:
+            screen.blit(background_2, (0, -400))
+            SKY.get_moon()
+            SKY.get_dark_cloud_1()
+            SKY.get_dark_cloud_2()
+            DINO.dino = dinasour_2
+
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
+                # Dino Jump
+                if event.key == pygame.K_SPACE and DINO.dino_Y == 420 and not(DONE):
+                    DINO.dino_Y -= 192
+                    JUMP.play()
+
+        # Dino Gravitation
+        if not(DONE):
+            if DINO.dino_Y < 420:
+                DINO.dino_Y += 0.75
+
+            # Enemy Moving
+            speed = 0.65
+            bullet_speed = 1
+
+            ENEMY.cactus_1_X -= speed
+            ENEMY.cactus_2_X -= speed
+            ENEMY.bird_X -= speed
+            ENEMY.hunter_X -= speed
+            ENEMY.hunter_bullet_X -= bullet_speed
+
+        
+        if ENEMY.cactus_1_X < -60:
+            ENEMY.cactus_1_X = places[rand_1]
+            STAT.score += 1
+            SCORE_UP.play()
+
+            rand_1 = rd.randint(0, 3)
+
+        if ENEMY.cactus_2_X < -60:
+            ENEMY.cactus_2_X = places[rand_2]
+            STAT.score += 1
+            SCORE_UP.play()
+
+            rand_2 = rd.randint(0, 3)
+
+        if ENEMY.bird_X < -60:
+            ENEMY.bird_X = places[rand_3]
+            STAT.score += 1
+            SCORE_UP.play()
+
+            rand_3 = rd.randint(0, 3)
+
+        if ENEMY.hunter_X < -60:
+            ENEMY.hunter_X = places[rand_4]
+            STAT.score += 1
+            SCORE_UP.play()
+
+            rand_4 = rd.randint(0, 3)
+
+        if ENEMY.hunter_bullet_X < -40:
+            ENEMY.hunter_bullet_X = ENEMY.hunter_X - 8
+
+
+        # Sky Changing
+        if STAT.score == 15:
+            BK = False
+            CHANGING_WEATHER.play()
+            speed = 0.7
+
+        if STAT.score == 30:
+            BK = True
+            CHANGING_WEATHER.play()
+            speed = 0.75
+
+        if STAT.score == 50:
+            BK = False
+            CHANGING_WEATHER.play()
+            speed = 0.8
+
+        if STAT.score == 75:
+            BK = True
+            CHANGING_WEATHER.play()
+            speed = 0.85
+
+        # Winning
+        if STAT.score == 100:
+            DONE = True
+            STAT.get_win()
+
+            if WN:
+                WINNING.play()
+                WN = False
+
+        
+        # Losing
+        if DINO.dino_X < ENEMY.cactus_1_X and DINO.dino_X + 56 > ENEMY.cactus_1_X and DINO.dino_Y > 360 or DINO.dino_X < ENEMY.cactus_2_X and DINO.dino_X + 52 > ENEMY.cactus_2_X and DINO.dino_Y > 360 or DINO.dino_X < ENEMY.bird_X and DINO.dino_X + 56 > ENEMY.bird_X and DINO.dino_Y > 300 and DINO.dino_Y < 360 or DINO.dino_X < ENEMY.hunter_bullet_X and DINO.dino_X + 64 > ENEMY.hunter_bullet_X and DINO.dino_Y > 370:
+            DONE = True
+
+            STAT.get_lose()
+            if LS:
+                LOSING.play()
+                LS = False
+
+
+        # Images
+        ENEMY.get_hunter()
+        ENEMY.get_hunter_bullet()
+        ENEMY.get_cactus_1()
+        ENEMY.get_cactus_2()
+        ENEMY.get_bird()
+
+        DINO.get_dino()
+        STAT.get_score()
+
+        pygame.display.update()
