@@ -188,6 +188,8 @@ if __name__ == "__main__":
     WN = True
     LS = True
 
+    JP = False
+
 
     DONE = False
     running = True
@@ -220,6 +222,12 @@ if __name__ == "__main__":
                 if event.key == pygame.K_SPACE and DINO.dino_Y == 420 and not(DONE):
                     DINO.dino_Y -= 192
                     JUMP.play()
+                    JP = True
+
+                if JP and event.key == pygame.K_SPACE and DINO.dino_Y > 228 and not(DONE):
+                    DINO.dino_Y -= 192
+                    JUMP.play()
+                    JP = False                        
 
         # Dino Gravitation
         if not(DONE):
@@ -299,7 +307,7 @@ if __name__ == "__main__":
                 WINNING.play()
                 WN = False
 
-        
+
         # Losing
         if DINO.dino_X < ENEMY.cactus_1_X and DINO.dino_X + 56 > ENEMY.cactus_1_X and DINO.dino_Y > 360 or DINO.dino_X < ENEMY.cactus_2_X and DINO.dino_X + 52 > ENEMY.cactus_2_X and DINO.dino_Y > 360 or DINO.dino_X < ENEMY.bird_X and DINO.dino_X + 56 > ENEMY.bird_X and DINO.dino_Y > 300 and DINO.dino_Y < 360 or DINO.dino_X < ENEMY.hunter_bullet_X and DINO.dino_X + 64 > ENEMY.hunter_bullet_X and DINO.dino_Y > 370:
             DONE = True
